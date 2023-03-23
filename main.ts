@@ -1,8 +1,8 @@
-let simon_state = 0
-let simon_speed = 0
+let simon_state: number
+let simon_speed: number
 let simon_sequence: number[]
-let simon_inputlevel = 0
-let simon_inputindex = 0
+let simon_inputlevel: number
+let simon_inputindex: number
 
 function simon_start(elements: number[], count: number, speed: number) {
     simon_state = 0
@@ -15,10 +15,10 @@ function simon_start(elements: number[], count: number, speed: number) {
     simon_inputlevel = 0
     simon_inputindex = 0
     simon_speed = speed
-    simon_show()
+    simon_output()
 }
 
-function simon_show() {
+function simon_output() {
     simon_state = 1
     game_state(simon_state)
     for (let i = 0; i <= simon_inputlevel; i++) {
@@ -49,7 +49,7 @@ function simon_input(element: number) {
             return
         }
         basic.pause(500)
-        simon_show()
+        simon_output()
         return
     }
     simon_inputindex = simon_inputindex + 1
@@ -57,14 +57,26 @@ function simon_input(element: number) {
 
 
 
+
 function game_state(state: number) {
-    return
-    led.unplot(0, 4)
-    led.unplot(1, 4)
-    led.unplot(2, 4)
-    led.unplot(3, 4)
-    led.unplot(4, 4)
+    if (true)
+        return
+    for (let x = 0; x < 5; x++)
+        led.unplot(x, 4)
     led.plot(state, 4)
+}
+
+function game_start() {
+    let elements = [1, 2]
+    let count = 4
+    let speed = 1
+    input.onButtonPressed(Button.A, function () {
+        simon_input(1)
+    })
+    input.onButtonPressed(Button.B, function () {
+        simon_input(2)
+    })
+    simon_start(elements, count, speed)
 }
 
 function game_output(element: number, speed: number) {
@@ -91,17 +103,5 @@ function game_loose() {
 
 
 
-basic.forever(function () {
 
-})
-
-input.onButtonPressed(Button.A, function () {
-    simon_input(1)
-})
-
-input.onButtonPressed(Button.B, function () {
-    simon_input(2)
-})
-
-let game_elements = [1, 2]
-simon_start(game_elements, 4, 1)
+game_start()
